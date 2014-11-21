@@ -17,7 +17,7 @@ const int MAX = 10;
 using namespace std;
 
 void Menu(){
- cout <<"================================================="	;
+ cout <<"===============================================" << endl	;
  cout << "Bem vindo ao Sistema do Hospital" << endl;
  cout << "Por favor escolha uma das opcoes abaixo:" << endl;
  cout << "1 - Adicionar Paciente" << endl;
@@ -25,7 +25,7 @@ void Menu(){
  cout << "3 - Informar que um novo coracao chegou" << endl;
  cout << "0 - Sair" << endl;
  cout << endl<<"Por favor escolha uma opcao" << endl;
- cout <<"================================================="	;
+ cout <<"===============================================" <<endl	;
 }
 
 
@@ -112,31 +112,50 @@ void Remocao(Paciente* vetor[], int tamanho){
 
 int main(int argc, char** argv) {
 
-    Paciente* lista[2*MAX+1], aux;
-    int tamanho_Lista , opcao, prioridade, pos = 0;
+    Paciente lista[2*MAX+1], aux;
+    int tamanho_Lista = 0 , opcao, prioridade, pos = 0;
     string nome, telefone;
     Menu();
     cin >> opcao;
-    
+   do{
+   
     switch(opcao){
     	case 1:
+    	prioridade = -1;	
     	system("cls");	
     	cout << "Digite o nome do paciente" << endl;	
     	cin >> nome;
     	cout << "Digite o telefone do paciente" << endl;
     	cin >> telefone;
-    	cout << "Digite a prioridade dopaciente" << endl;
+    	while(prioridade <= 0 || prioridade >=6){
+    	cout << "Digite a prioridade do paciente (de 1 a 5 " << endl;
     	cin >> prioridade;
+    	}    	
         aux.setNome(nome);
         aux.setTelefone(telefone);
         aux.setPrioridade(prioridade);
-    	Inserir(lista, pos, &aux);
+        
+        cout << aux;
+        system("pause");
+        
+    	Inserir(lista, pos, aux);
     	tamanho_Lista++;
     	system("cls");	
     	cout << "Paciente adicionado na lista " << endl;
     	Menu();
         cin >> opcao;
         break;
+        case 2:
+        	system("cls");
+        	if(tamanho_Lista > 0){
+        	 Escrever(lista, tamanho_Lista);        	 
+        	}else{
+        	 cout << endl<< "Lista vazia " << endl;		
+        	}
+        	
+    	    Menu();
+            cin >> opcao;
+            break;
     	case 0:
     	system("cls");	
     	system("pause");
@@ -148,6 +167,7 @@ int main(int argc, char** argv) {
     	cin >> opcao;
     	break;
     }
+}while(opcao != 0);
     return 0;
 }
 
