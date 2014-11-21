@@ -1,48 +1,31 @@
-
 #ifndef PACIENTE_H
-#define	PACIENTE_H
 #define PACIENTE_H
-#define <iostream>
-#define <cstdlib>
-#define <string>
 
+#include <iostream>
+#include <cstdlib>
+#include<string>
 using namespace std;
 
 
 class Paciente {
 
 
-    friend ostream &operator<<(ostream&, const Paciente&);
+    friend ostream &operator<<(ostream&,  Paciente&);
 public:
     Paciente();
     Paciente(const Paciente& orig);
     virtual ~Paciente();
 
-    string getNome(){
-      return this->nome;
-    }
+    void setNome(const string&);
+    string getNome() const;
+    
+    void setTelefone(const string&);
+    string getTelefone() const;
+    
+    void setPrioridade(const int&);
+    int getPrioridade() const;
 
-    string getTelefone(){
-     return this->telefone;
-    }
-
-    int getPrioridade(){
-     return this->num_Prioridade;
-    }
-
-    void setNome(const string& nome){
-        this->nome = nome;
-    }
-
-    void setTelefone(const string& telefone){
-        this->telefone = telefone;
-    }
-
-    void setPrioridade(const int& priori){
-        this->num_Prioridade = priori;
-    }
-
-    Paciente operator&(const Paciente&);
+    Paciente* operator=(Paciente&);
 
 protected:
     string nome;

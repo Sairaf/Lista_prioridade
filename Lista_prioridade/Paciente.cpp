@@ -1,35 +1,62 @@
-/* 
- * File:   Paciente.cpp
- * Author: ABGerson
- * 
- * Created on 20 de Novembro de 2014, 23:08
- */
-
 #include "Paciente.h"
 
-Paciente::Paciente() {  
-  this->nome = "Desconhecido"  ;
-  this->telefone = "1234-5678";
-  this->num_Prioridade = 1;    
+Paciente::Paciente(){
+ this->setNome("desconhecido")	;
+ this->setPrioridade(1);
+ this->setTelefone("00000000") ;	
 }
 
-Paciente::Paciente(const Paciente& orig) {
+Paciente::~Paciente(){
+	
 }
 
-Paciente::~Paciente() {
+ostream& operator<<(ostream& output, Paciente& paciente){
+ output << "Nome: "	     << paciente.getNome() << endl;
+ output << "Telefone: "	 << paciente.getTelefone() << endl;
+ output << "Prioridade: "<< paciente.getPrioridade() << endl;
+ return output;
 }
 
-Paciente operator&(const Paciente& orig){
- Paciente aux();
- aux->setNome(orig->getNome());
- aux->setPrioridade(orig->setPrioridade());
- aux->setTelefone(orig->getTelefone());
+Paciente* Paciente::operator=(Paciente& paciente){
+ Paciente* aux;
+ aux->setNome(paciente.getNome());
+ aux->setTelefone(paciente.getTelefone());	
+ aux->setPrioridade(paciente.getPrioridade());
  return aux;
 }
-ostream operator<<(ostream& output, const Paciente&){
- 
-    output << "Nome do Paciente: " << Paciente->getNome() << endl;
-    output << "Telefone do Paciente: " << Paciente->getTelefone() << endl;
-    output << "Prioridade" << Paciente->getNome() << endl;
-    return output;
+
+void Paciente::setNome(const string& nome){
+ if(nome.empty() == false)	{
+  this->nome = nome;	
+ }else{
+  this->nome = "nao informado";		
+ }
+}
+
+void Paciente::setTelefone(const string& telefone){
+ if(telefone.empty() == false)	{
+  this->telefone = telefone;	
+ }else{
+  this->telefone = "nao informado";		
+ }
+}
+
+void Paciente::setPrioridade(const int& prioridade){
+ if(prioridade > 0 && prioridade < 6)	{
+  this->num_Prioridade = prioridade;	
+ }else{
+  this->num_Prioridade = 1;
+ }
+}
+
+string Paciente::getNome() const{
+	return this->nome;
+}
+
+int Paciente::getPrioridade() const{
+	return this->num_Prioridade;
+}
+
+string Paciente::getTelefone() const{
+	return this->telefone;
 }
