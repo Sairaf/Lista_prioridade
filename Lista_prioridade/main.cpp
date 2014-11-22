@@ -29,12 +29,14 @@ void Menu(){
 }
 
 
-void Subir(Paciente * vetor[],int pos){
- Paciente* aux;
+void Subir(Paciente * vetor[],int& pos){
+ Paciente* aux = new Paciente();
  int pos_pai = pos/2;
+ //cout << pos_pai << endl;;
  if(pos_pai >= 1){
   if(vetor[pos] > vetor[pos_pai])   {
      aux = vetor[pos] ;
+
      vetor[pos] = vetor[pos_pai];
      vetor[pos_pai] = aux;
   }
@@ -64,37 +66,23 @@ void Descer(Paciente * vetor[], int pos, int MAX){
 
 void Escrever(Paciente* vetor[], int tamanho){
  int i;
- for(i = 0; i < tamanho;i++){
-  cout << vetor[i];
+ Paciente aux;
+ for(i = 1; i < tamanho;i++){
+  cout << "Paciente "<< i << ": " << endl;
+  cout << vetor[i]->getNome() << endl;
+  cout << vetor[i]->getTelefone() << endl;
+  cout << vetor[i]->getPrioridade() << endl;
+  cout << endl;
  }
 }
 
 void Inserir(Paciente* vetor[], int pos, Paciente* novo){
-	if(pos >= MAX){
+	if(pos >= 2*MAX+1){
 	 cout << "Lista cheia."	 <<endl;
 	}else{
 	 vetor[pos]	= novo;
-	 pos++ ;
-	 Subir(vetor, pos);	 	
+	 Subir(vetor, pos);
 	}
-}
-
-Paciente* Buscar_Prioridade(Paciente* vetor[], int tamanho, int prioridade){
-	int i;
-	int pos_Atendido = 0;
-	for(i = 1; i < tamanho; i++){
-	if(vetor[i]->getPrioridade() > vetor[i-1]->getPrioridade())	{
-	  pos_Atendido = i;	
-	}else if(vetor[i]->getPrioridade() == vetor[i-1]->getPrioridade())	{
-		if(vetor[i]->getNome() < vetor[i-1]->getNome()){
-		 pos_Atendido = i;		
-		}else{
-		 pos_Atendido = i-1;	 	
-		}
-	}
-	return vetor[pos_Atendido];
-  }
-	
 }
 
 void Remocao(Paciente* vetor[], int tamanho){
@@ -108,39 +96,58 @@ void Remocao(Paciente* vetor[], int tamanho){
   }
 }
 
+int Buscar_Prioridade(Paciente* vetor[], int tamanho){
+	int i;
+	int pos_Atendido = 0;
+	for(i = 1; i < tamanho; i++){
+	if(vetor[i]->getPrioridade() > vetor[i-1]->getPrioridade())	{
+	  pos_Atendido = i;
+	}
+   }
+    Remocao(vetor, tamanho);
+	return pos_Atendido;
+  }
 
 
 int main(int argc, char** argv) {
 
-    Paciente lista[2*MAX+1], aux;
-    int tamanho_Lista = 0 , opcao, prioridade, pos = 0;
+    Paciente* lista[2*MAX+1];// = new Paciente;
+    Paciente aux;
+
+    int t;
+    int tamanho_Lista = 1 , opcao, prioridade, pos = 0, aux_Busca;
     string nome, telefone;
+
+    for(int t = 0; t < 2*MAX+1; t++)
+      lista[t]= new Paciente;
+
     Menu();
     cin >> opcao;
    do{
-   
+
     switch(opcao){
     	case 1:
-    	prioridade = -1;	
-    	system("cls");	
-    	cout << "Digite o nome do paciente" << endl;	
-    	cin >> nome;
-    	cout << "Digite o telefone do paciente" << endl;
-    	cin >> telefone;
+    	if(tamanho_Lista <MAX){
+         prioridade = -1;
+    	 system("cls");
+    	 cout << "Digite o nome do paciente" << endl;
+    	 cin >> nome;
+    	 cout << "Digite o telefone do paciente" << endl;
+    	 cin >> telefone;
+
     	while(prioridade <= 0 || prioridade >=6){
-    	cout << "Digite a prioridade do paciente (de 1 a 5 " << endl;
-    	cin >> prioridade;
-    	}    	
-        aux.setNome(nome);
-        aux.setTelefone(telefone);
-        aux.setPrioridade(prioridade);
-        
-        cout << aux;
-        system("pause");
-        
-    	Inserir(lista, pos, aux);
-    	tamanho_Lista++;
-    	system("cls");	
+      	    cout << "Digite a prioridade do paciente (de 1 a 5 )" << endl;
+         	cin >> prioridade;
+    	 }
+    	 aux.setNome(nome);
+    	 aux.setPrioridade(prioridade);
+    	 aux.setTelefone(telefone);
+         Inserir(lista, tamanho_Lista, &aux);
+    	 tamanho_Lista++;
+    	}
+
+
+    	//system("cls");
     	cout << "Paciente adicionado na lista " << endl;
     	Menu();
         cin >> opcao;
@@ -148,16 +155,22 @@ int main(int argc, char** argv) {
         case 2:
         	system("cls");
         	if(tamanho_Lista > 0){
-        	 Escrever(lista, tamanho_Lista);        	 
+        	 Escrever(lista, tamanho_Lista);
         	}else{
-        	 cout << endl<< "Lista vazia " << endl;		
+        	 cout << endl<< "Lista vazia " << endl;
         	}
-        	
+
     	    Menu();
             cin >> opcao;
             break;
+        case 3:
+              system("cls");
+              aux_Busca =Buscar_Prioridade(lista, tamanho_Lista);
+	          Menu();
+              cin >> opcao;
+              break;
     	case 0:
-    	system("cls");	
+    	system("cls");
     	system("pause");
     	return 0;
     	default:

@@ -3,11 +3,11 @@
 Paciente::Paciente(){
  this->setNome("desconhecido")	;
  this->setPrioridade(1);
- this->setTelefone("00000000") ;	
+ this->setTelefone("00000000") ;
 }
 
 Paciente::~Paciente(){
-	
+
 }
 
 ostream& operator<<(ostream& output, Paciente& paciente){
@@ -17,33 +17,34 @@ ostream& operator<<(ostream& output, Paciente& paciente){
  return output;
 }
 
-Paciente* Paciente::operator=(Paciente& paciente){
- Paciente* aux;
- aux->setNome(paciente.getNome());
- aux->setTelefone(paciente.getTelefone());	
- aux->setPrioridade(paciente.getPrioridade());
- return aux;
+Paciente Paciente::operator=(const Paciente& paciente){
+
+ this->nome= paciente.getNome();
+ this->telefone = paciente.getTelefone();
+ this->num_Prioridade = paciente.getPrioridade();
+ return (*this);
 }
+
 
 void Paciente::setNome(const string& nome){
  if(nome.empty() == false)	{
-  this->nome = nome;	
+  this->nome = nome;
  }else{
-  this->nome = "nao informado";		
+  this->nome = "nao informado";
  }
 }
 
 void Paciente::setTelefone(const string& telefone){
  if(telefone.empty() == false)	{
-  this->telefone = telefone;	
+  this->telefone = telefone;
  }else{
-  this->telefone = "nao informado";		
+  this->telefone = "nao informado";
  }
 }
 
 void Paciente::setPrioridade(const int& prioridade){
  if(prioridade > 0 && prioridade < 6)	{
-  this->num_Prioridade = prioridade;	
+  this->num_Prioridade = prioridade;
  }else{
   this->num_Prioridade = 1;
  }

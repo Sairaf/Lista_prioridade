@@ -32,9 +32,9 @@
 			<Add option="-Wall" />
 		</Compiler>
 		<Unit filename="Lista.h" />
-		<Unit filename="main.c">
-			<Option compilerVar="CC" />
-		</Unit>
+		<Unit filename="Lista_prioridade/Paciente.cpp" />
+		<Unit filename="Lista_prioridade/Paciente.h" />
+		<Unit filename="Lista_prioridade/main.cpp" />
 		<Extensions>
 			<code_completion />
 			<envvars />

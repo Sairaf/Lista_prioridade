@@ -1,0 +1,16 @@
+# depslib dependency file v1.0
+1416618232 source:c:\users\abgerson\documents\github\lista_prioridade\lista_prioridade\main.cpp
+	<cstdlib>
+	<stdio.h>
+	<string>
+	<vector>
+	"Paciente.h"
+
+1416618407 c:\users\abgerson\documents\github\lista_prioridade\lista_prioridade\paciente.h
+	<iostream>
+	<cstdlib>
+	<string>
+
+1416618347 source:c:\users\abgerson\documents\github\lista_prioridade\lista_prioridade\paciente.cpp
+	"Paciente.h"
+

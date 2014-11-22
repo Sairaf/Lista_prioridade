@@ -13,19 +13,20 @@ class Paciente {
     friend ostream &operator<<(ostream&,  Paciente&);
 public:
     Paciente();
-    Paciente(const Paciente& orig);
+    //Paciente(const Paciente& orig);
     virtual ~Paciente();
 
     void setNome(const string&);
     string getNome() const;
-    
+
     void setTelefone(const string&);
     string getTelefone() const;
-    
+
     void setPrioridade(const int&);
     int getPrioridade() const;
 
-    Paciente* operator=(Paciente&);
+    Paciente operator=(const Paciente&);
+    //Paciente* operator=(Paciente*);
 
 protected:
     string nome;
